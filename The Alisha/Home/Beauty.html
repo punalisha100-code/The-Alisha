@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA Fashion — Beauty & Lookbook</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --clr-bg: #fffafc;
+      --clr-surface: #ffffff;
+      --clr-surface-translucent: rgba(255, 255, 255, 0.9);
+      --clr-text-primary: #2d2436;
+      --clr-text-muted: #6c6379;
+      --clr-accent: #f85ca8;
+      --clr-accent-hover: #c83b77;
+      --clr-border: rgba(200, 59, 119, 0.16);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --shadow-soft: 0 20px 45px rgba(200, 59, 119, 0.12);
+      --shadow-hover: 0 24px 50px rgba(200, 59, 119, 0.18);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fffafc 0%, #ffeaf4 100%);
+      color: var(--clr-text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    button, input, textarea {
+      font: inherit;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--clr-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .navbar .logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--clr-accent-hover);
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--clr-text-muted);
+      font-weight: 600;
+      padding: 0.65rem 0.9rem;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+
+    .navbar a:hover {
+      color: #fff;
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-hover));
+    }
+
+    .site-header {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--clr-accent-hover);
+      text-decoration: none;
+    }
+
+    .nav-filters {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .filter-btn {
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--clr-text-muted);
+      border: 1px solid var(--clr-border);
+      transition: var(--transition);
+      white-space: nowrap;
+      background: var(--clr-surface);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-hover));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-subtitle {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--clr-accent);
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+      color: var(--clr-accent-hover);
+    }
+
+    .hero-desc {
+      color: var(--clr-text-muted);
+      font-size: 1rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .lookbook-container {
+      max-width: 1320px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .look-card {
+      background: var(--clr-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--clr-border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .look-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #fef4f9;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .look-card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .tag-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-hover));
+      color: #fff;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .like-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .like-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--clr-text-primary);
+      stroke-width: 2;
+      transition: var(--transition);
+    }
+
+    .like-btn.liked svg {
+      fill: var(--clr-accent);
+      stroke: var(--clr-accent);
+    }
+
+    .card-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .look-title {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--clr-accent-hover);
+    }
+
+    .tagged-products {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .product-chip {
+      background: #fff5fa;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: var(--clr-text-muted);
+      font-weight: 600;
+    }
+
+    .comments-section {
+      margin-top: auto;
+      border-top: 1px solid var(--clr-border);
+      padding-top: 1rem;
+    }
+
+    .comments-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .comments-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .comments-list::-webkit-scrollbar-thumb {
+      background: #e8cddf;
+      border-radius: 4px;
+    }
+
+    .comment-item {
+      font-size: 0.9rem;
+      background: #fff8fb;
+      padding: 0.65rem 0.75rem;
+      border-radius: 14px;
+      border: 1px solid var(--clr-border);
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: var(--clr-accent-hover);
+      margin-right: 0.35rem;
+    }
+
+    .comment-text {
+      color: var(--clr-text-muted);
+    }
+
+    .comment-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .comment-input {
+      flex-grow: 1;
+      background: #fff;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      border: 1px solid var(--clr-border);
+      transition: var(--transition);
+    }
+
+    .comment-input:focus {
+      border-color: var(--clr-accent);
+      box-shadow: 0 0 0 4px rgba(248, 92, 168, 0.16);
+    }
+
+    .submit-comment-btn {
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent-hover));
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .submit-comment-btn:hover {
+      filter: brightness(1.04);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+      }
+
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1rem 0.25rem;
+      }
+
+      .nav-filters {
+        width: 100%;
+      }
+
+      .lookbook-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding: 1.75rem 1rem 1.25rem;
+      }
+
+      .comment-form {
+        flex-direction: column;
+      }
+
+      .submit-comment-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">The Alisha</div>
+    <ul>
+      <li><a href="../The.alisha/index.html">Home</a></li>
+      <li><a href="new-Arrivals.html">New Arrivals</a></li>
+      <li><a href="Fashion.html">Fashion</a></li>
+      <li><a href="Beauty.html">Beauty</a></li>
+      <li><a href="Accessories.html">Accessories</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <a href="#" class="brand-logo">AURA.</a>
+    <nav class="nav-filters" id="category-filters">
+      <button class="filter-btn active" data-filter="all">All Looks</button>
+      <button class="filter-btn" data-filter="makeup">Beauty & Glow</button>
+      <button class="filter-btn" data-filter="streetwear">Street Aesthetics</button>
+      <button class="filter-btn" data-filter="evening">Evening Glam</button>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <p class="hero-subtitle">Editorial & Lookbook</p>
+    <h1 class="hero-title">New Season Beauty Showcase</h1>
+    <p class="hero-desc">Explore curated street styles, modern aesthetics, and real community feedback on our latest drops.</p>
+  </section>
+
+  <!-- Lookbook Grid Section -->
+  <main class="lookbook-container">
+    <div class="lookbook-grid" id="lookbook-grid">
+      <!-- Dynamic Look Cards Rendered via JS -->
+    </div>
+  </main>
+
+  <!-- JavaScript Application Layer -->
+  <script>
+    /**
+     * Senior Web Dev Architecture:
+     * - State-driven Rendering
+     * - Event Delegation for high performance
+     * - Clean ES6 Modular Structure
+     */
+
+    // 1. DATA MODEL (Simulating backend API payload)
+    const LOOKBOOK_DATA = [
+      {
+        id: "look-1",
+        category: "makeup",
+        title: "Sunkissed Minimalist",
+        image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
+        tag: "Editorial Beauty",
+        likes: 248,
+        isLiked: false,
+        products: ["Dewy Skin Serum", "Silk Linen Blazer"],
+        comments: [
+          { author: "Elena R.", text: "The glow on this edit is absolutely unreal!" },
+          { author: "Marcus", text: "Is that blazer available in oversized fit?" }
+        ]
+      },
+      {
+        id: "look-2",
+        category: "streetwear",
+        title: "Monochrome Tailoring",
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+        tag: "Streetwear",
+        likes: 512,
+        isLiked: true,
+        products: ["Pleated Wide Trousers", "Leather Trench"],
+        comments: [
+          { author: "Sophia T.", text: "Ordering this full outfit immediately." }
+        ]
+      },
+      {
+        id: "look-3",
+        category: "evening",
+        title: "Satin Elegance & Dark Lips",
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+        tag: "Evening Glam",
+        likes: 389,
+        isLiked: false,
+        products: ["Satin Slip Dress", "Velvet Matte Lipstick"],
+        comments: [
+          { author: "Chloe M.", text: "What shade is the lipstick please??" },
+          { author: "AURA Team", text: "Hey Chloe! It's shade 'Burgundy Velvet'." }
+        ]
+      }
+    ];
+
+    // 2. STATE MANAGEMENT
+    let state = {
+      looks: [...LOOKBOOK_DATA],
+      activeFilter: "all"
+    };
+
+    // 3. RENDER FUNCTIONS
+    const gridContainer = document.getElementById("lookbook-grid");
+
+    function renderCardHTML(look) {
+      const commentsMarkup = look.comments.map(c => `
+        <div class="comment-item">
+          <span class="comment-author">${escapeHTML(c.author)}</span>
+          <span class="comment-text">${escapeHTML(c.text)}</span>
+        </div>
+      `).join('');
+
+      const productsMarkup = look.products.map(p => `
+        <span class="product-chip">🏷️ ${escapeHTML(p)}</span>
+      `).join('');
+
+      return `
+        <article class="look-card" data-id="${look.id}" data-category="${look.category}">
+          <div class="card-media">
+            <img src="${look.image}" alt="${escapeHTML(look.title)}" loading="lazy" />
+            <span class="tag-badge">${escapeHTML(look.tag)}</span>
+            <button class="like-btn ${look.isLiked ? 'liked' : ''}" aria-label="Like Look" data-action="like">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="card-content">
+            <h2 class="look-title">${escapeHTML(look.title)}</h2>
+            <div class="tagged-products">
+              ${productsMarkup}
+            </div>
+
+            <section class="comments-section">
+              <div class="comments-header">
+                <span>Community Feedback</span>
+                <span class="like-count">${look.likes} Likes</span>
+              </div>
+              <div class="comments-list">
+                ${commentsMarkup}
+              </div>
+              <form class="comment-form" data-action="add-comment">
+                <input type="text" class="comment-input" placeholder="Add a comment..." required />
+                <button type="submit" class="submit-comment-btn">Post</button>
+              </form>
+            </section>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderApp() {
+      const filteredLooks = state.activeFilter === "all" 
+        ? state.looks 
+        : state.looks.filter(item => item.category === state.activeFilter);
+
+      gridContainer.innerHTML = filteredLooks.map(renderCardHTML).join('');
+    }
+
+    // Utility to prevent XSS vulnerability
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // 4. EVENT DELEGATION HANDLERS
+    function handleGridClick(e) {
+      const card = e.target.closest('.look-card');
+      if (!card) return;
+
+      const lookId = card.dataset.id;
+      const targetLikeBtn = e.target.closest('[data-action="like"]');
+
+      // Toggle Like
+      if (targetLikeBtn) {
+        const item = state.looks.find(l => l.id === lookId);
+        if (item) {
+          item.isLiked = !item.isLiked;
+          item.likes += item.isLiked ? 1 : -1;
+          renderApp();
+        }
+      }
+    }
+
+    function handleGridSubmit(e) {
+      e.preventDefault();
+      const form = e.target.closest('[data-action="add-comment"]');
+      if (!form) return;
+
+      const card = e.target.closest('.look-card');
+      const lookId = card.dataset.id;
+      const input = form.querySelector('.comment-input');
+      const text = input.value.trim();
+
+      if (text) {
+        const item = state.looks.find(l => l.id === lookId);
+        if (item) {
+          item.comments.push({ author: "You", text: text });
+          renderApp();
+        }
+      }
+    }
+
+    function handleFilterClick(e) {
+      const filterBtn = e.target.closest('.filter-btn');
+      if (!filterBtn) return;
+
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      filterBtn.classList.add('active');
+
+      state.activeFilter = filterBtn.dataset.filter;
+      renderApp();
+    }
+
+    // 5. INITIALIZATION
+    document.addEventListener("DOMContentLoaded", () => {
+      renderApp();
+
+      // Delegation attachments
+      gridContainer.addEventListener("click", handleGridClick);
+      gridContainer.addEventListener("submit", handleGridSubmit);
+      document.getElementById("category-filters").addEventListener("click", handleFilterClick);
+    });
+  </script>
+</body>
+</html>

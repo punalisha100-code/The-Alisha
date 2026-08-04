@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER — Fashion</title>
+  <link rel="stylesheet" href="fashion.css">
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">The Alisha</div>
+    <ul>
+      <li><a href="../The.alisha/index.html">Home</a></li>
+      <li><a href="new-Arrivals.html">New Arrivals</a></li>
+      <li><a href="Fashion.html">Fashion</a></li>
+      <li><a href="Beauty.html">Beauty</a></li>
+      <li><a href="Accessories.html">Accessories</a></li>
+    </ul>
+  </nav>
+
+  <!-- NAVBAR -->
+  <!-- <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">Atelier</a>
+    </div>
+  </header> -->
+
+  <!-- MAIN CONTENT -->
+  <main class="main-container">
+    <header class="page-header">
+      <h1 class="page-title">Fashion</h1>
+      <p class="page-subtitle">Discover our latest collection for the upcoming season.</p>
+    </header>
+
+    <!-- PRODUCT GRID CONTAINER -->
+    <section class="product-grid" id="productGrid"></section>
+  </main>
+
+  <!-- APPLICATION JAVASCRIPT -->
+  <script>
+    // State management: Data structure for New Arrivals & Comments
+    const productsData = [
+      {
+        id: "prod-1",
+        title: "Tailored Linen Blazer",
+        price: "$280",
+        description: "Relaxed silhouette crafted from breathable organic linen.",
+        imageUrl: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80",
+        comments: [
+          { author: "Elena M.", text: "Fits true to size! Loving the fabric quality.", time: "2h ago" },
+          { author: "Marcus K.", text: "Does this come in dark beige?", time: "5h ago" }
+        ]
+      },
+      {
+        id: "prod-2",
+        title: "Oversized Knit Sweater",
+        price: "$195",
+        description: "Heavyweight merino wool blend featuring ribbed trim.",
+        imageUrl: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+        comments: [
+          { author: "Sarah B.", text: "Super soft, not itchy at all.", time: "1d ago" }
+        ]
+      },
+      {
+        id: "prod-3",
+        title: "Pleated Trousers",
+        price: "$165",
+        description: "High-waisted fit with deep pleats and wide leg profile.",
+        imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+        comments: []
+      }
+    ];
+
+    // DOM Render Engine
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = productsData.map(product => `
+        <article class="product-card" data-id="${product.id}">
+          <div class="image-wrapper">
+            <span class="badge-new">New</span>
+            <img src="${product.imageUrl}" alt="${product.title}" class="product-image" loading="lazy">
+          </div>
+          
+          <div class="product-info">
+            <div class="product-header">
+              <h2 class="product-title">${product.title}</h2>
+              <span class="product-price">${product.price}</span>
+            </div>
+            <p class="product-desc">${product.description}</p>
+          </div>
+
+          <!-- DEDICATED COMMENTS SECTION -->
+          <div class="comments-section">
+            <button class="comments-toggle" onclick="toggleComments('${product.id}')">
+              <span>Customer Feedback (${product.comments.length})</span>
+              <span id="icon-${product.id}">&#9660;</span>
+            </button>
+
+            <div id="comments-container-${product.id}" class="is-hidden">
+              <div class="comments-list" id="list-${product.id}">
+                ${renderCommentsList(product.comments)}
+              </div>
+
+              <form class="comment-form" onsubmit="handleCommentSubmit(event, '${product.id}')">
+                <input 
+                  type="text" 
+                  class="comment-input" 
+                  placeholder="Write a comment..." 
+                  required
+                  id="input-${product.id}"
+                >
+                <button type="submit" class="comment-submit">Post</button>
+              </form>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Render individual comment items
+    function renderCommentsList(comments) {
+      if (comments.length === 0) {
+        return `<p style="font-size:0.8rem; color:var(--text-muted);">No comments yet. Be the first to review!</p>`;
+      }
+      return comments.map(c => `
+        <div class="comment-item">
+          <div class="comment-author">
+            <span>${escapeHTML(c.author)}</span>
+            <span class="comment-time">${c.time}</span>
+          </div>
+          <div>${escapeHTML(c.text)}</div>
+        </div>
+      `).join('');
+    }
+
+    // UI Toggle for Collapsible Comments
+    function toggleComments(productId) {
+      const container = document.getElementById(`comments-container-${productId}`);
+      const icon = document.getElementById(`icon-${productId}`);
+      
+      const isHidden = container.classList.toggle('is-hidden');
+      icon.innerHTML = isHidden ? '&#9660;' : '&#9650;';
+    }
+
+    // Comment Submission Logic
+    function handleCommentSubmit(event, productId) {
+      event.preventDefault();
+      const input = document.getElementById(`input-${productId}`);
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      const product = productsData.find(p => p.id === productId);
+      if (product) {
+        // Append new comment state
+        product.comments.push({
+          author: "Verified Buyer",
+          text: text,
+          time: "Just now"
+        });
+
+        // Re-render comments list for this card
+        const listContainer = document.getElementById(`list-${productId}`);
+        listContainer.innerHTML = renderCommentsList(product.comments);
+
+        // Update count text
+        const card = document.querySelector(`[data-id="${productId}"]`);
+        const toggleBtn = card.querySelector('.comments-toggle span');
+        toggleBtn.textContent = `Customer Feedback (${product.comments.length})`;
+
+        // Reset Input
+        input.value = '';
+      }
+    }
+
+    // Utility to prevent XSS attacks
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', renderProducts);
+  </script>
+</body>
+</html>

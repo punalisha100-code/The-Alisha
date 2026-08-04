@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> The Alisha- Summer Collection</title>
+  <link rel="stylesheet" href="index.css">
+ 
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">The Alisha</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="../Home/new-Arrivals.html">New Arrivals</a></li>
+      <li><a href="../Home/Fashion.html">Fashion</a></li>
+      <li><a href="../Home/Beauty.html">Beauty</a></li>
+      <li><a href="../Home/Accessories.html">Accessories</a></li>
+      <li><a href="../Login/login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <section class="banner">
+    <div class="banner-shell">
+      <div>
+        <h1>Summer Collection – Stay Cute & Stylish!</h1>
+        <p>Discover elevated essentials, statement accessories, and beauty picks made for the season.</p>
+        <button class="btn">Shop Now</button>
+      </div>
+      <img src="https://via.placeholder.com/420x280/ff99cc/ffffff?text=Summer+Style" alt="Banner">
+    </div>
+  </section>
+
+  <section class="best-sellers">
+    <div class="section-heading">
+      <h2>Best Sellers – Popular Picks Just for You</h2>
+    </div>
+    <div class="products">
+      <div class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yOf4AkP65aj5lC_400AvRc7G-2plv2hs5YbyMrpq-w&s" alt="Pretty Pink Dress">
+        <h3>Pretty onepice Dress</h3>
+        <p>Rs4000</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://coach.scene7.com/is/image/Coach/ccx04_b4mpl_a0?$mobileProductTile$" alt="Elegant Quilted Bag">
+        <h3>Elegant Quilted Bag</h3>
+        <p>Rs1600</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://static-01.daraz.com.np/p/1f496b9c4414cc8d9ed8f1fdbdd3e2bb.jpg" alt="Rosy Lipstick">
+        <h3>Rosy Lipstick</h3>
+        <p>Rs300</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi-AzqnZErD3BL4UEBWRuKh5VIglaKnmptb_euF0wf0g&s" alt="Kurthi">
+        <h3>Kurthi</h3>
+        <p>Rs2000</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtSUwGjkyFQNU1Hp78k5SGEiFM7Gs4n2qQ0ysJle4HYiPk5ajbUdSEwXuU&s=10" alt="Heels">
+        <h3>Heels</h3>
+        <p>Rs1500</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLh9z9iQyStGqWEBw6_tpNNpzDUL45V2txdAuZOKwMiMALVqCAvzWlmuHh&s=10" alt="T-shirt">
+        <h3>T-shirt</h3>
+        <p>Rs700</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm1cXLAx0b2tJxWlcIRkU8IFVoyPdiEdOUDhHwxzJW-J3IDi0-5n02oZxk&s=10" alt="Pants">
+        <h3>Pants</h3>
+        <p>Rs1300</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo">
+    <div class="promo-card">
+      <h2>50% OFF Trendy Accessories</h2>
+      <button class="btn">Shop Accessories</button>
+    </div>
+    <div class="promo-card">
+      <h2>Beauty Essentials – New Arrivals</h2>
+      <button class="btn">Shop Beauty</button>
+    </div>
+  </section>
+
+  <section class="categories">
+    <h2>Shop by Category</h2>
+    <div class="icons">
+      <div>Fashion</div>
+      <div>New Arrivals</div>
+      <div>Beauty</div>
+      <div>Accessories</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-card">
+      <div class="socials">
+        <span>Instagram</span>
+        <span>Facebook</span>
+        <span>TikTok</span>
+        <span>YouTube</span>
+      </div>
+      <div class="subscribe">
+        <input type="email" placeholder="Enter your email">
+        <button id="subscribeBtn">Subscribe</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+  <script>
+    document.getElementById('subscribeBtn').addEventListener('click', () => {
+      const email = document.querySelector('footer input').value;
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert(`Subscribed with ${email}`);
+        return;
+      }
+      alert('Please enter a valid email.');
+    });
+  </script>
+</body>
+</html>
