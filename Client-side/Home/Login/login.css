@@ -1,0 +1,202 @@
+:root {
+  --pink: #f85ca8;
+  --pink-dark: #c83b77;
+  --bg: #fffafc;
+  --surface: #ffffff;
+  --text: #2d2436;
+  --muted: #6c6379;
+  --border: rgba(200, 59, 119, 0.16);
+  --shadow: 0 20px 45px rgba(200, 59, 119, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Inter", Arial, sans-serif;
+  background: linear-gradient(135deg, #fffafc 0%, #ffeaf4 100%);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+
+.login-shell {
+  width: min(100%, 460px);
+  background: var(--surface);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  justify-content: center;
+  display: flex;
+  flex: center;
+}
+.logo-image {
+  width: 60px;
+  height: 60x;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(248, 92, 168, 0.22);
+  box-shadow: 0 12px 25px rgba(248, 92, 168, 0.18);
+}
+
+.login-card {
+  padding: 2.25rem;
+}
+
+.card-heading {
+  margin-bottom: 0.4rem;
+  padding: 0.5rem 0;
+  margin: 10px;
+  flex: center;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  font-size: 0.77rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pink-dark);
+}
+
+.login-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  color: var(--pink-dark);
+}
+
+.card-copy {
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(248, 92, 168, 0.16);
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+.form-row a {
+  color: var(--pink-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(90deg, var(--pink), var(--pink-dark));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--muted);
+  margin: 1rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+  padding: 0 0.75rem;
+  font-size: 0.85rem;
+}
+
+.social-btn {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  margin-bottom: 0.7rem;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.03);
+}
+
+.social-btn.alt {
+  margin-bottom: 0;
+}
+
+.secondary-link {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.secondary-link a {
+  color: var(--pink-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 560px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

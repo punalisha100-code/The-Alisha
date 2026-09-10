@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Bag & Checkout — The Alisha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/The-Alisha/public/components/navbar/navbar.css" />
+  <link rel="stylesheet" href="/The-Alisha/public/components/cart/cart.css" />
+  <style>
+    :root {
+      --primary: #f85ca8;
+      --primary-dark: #c83b77;
+      --accent: #ff6eb6;
+      --bg: #fffafc;
+      --surface: #ffffff;
+      --text: #2d2436;
+      --muted: #6c6379;
+      --border: rgba(200, 59, 119, 0.16);
+      --radius: 20px;
+      --shadow: 0 18px 45px rgba(200, 59, 119, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #fffafc 0%, #ffeaf4 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .cart-page-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    /* Steps bar */
+    .checkout-steps {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .step-tab {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .step-tab.active {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(248, 92, 168, 0.3);
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .step-tab.active .step-num {
+      background: #fff;
+      color: var(--primary-dark);
+    }
+    /* Main Layout */
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .cart-panel {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.8rem;
+    }
+    .panel-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    /* Table Styling */
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-table th {
+      text-align: left;
+      padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cart-table td {
+      padding: 1.2rem 0.5rem;
+      border-bottom: 1px solid rgba(200, 59, 119, 0.08);
+      vertical-align: middle;
+    }
+    .product-col {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .cart-img {
+      width: 64px;
+      height: 76px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: #fff0f6;
+    }
+    .cart-prod-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    .cart-prod-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .unit-price, .line-price {
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(200, 59, 119, 0.25);
+      border-radius: 999px;
+      background: #fff;
+    }
+    .qty-controls button {
+      background: none;
+      border: none;
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      cursor: pointer;
+    }
+    .qty-controls span {
+      min-width: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.4rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .remove-btn:hover {
+      color: #ef4444;
+      background: #fee2e2;
+    }
+    .empty-cart-view {
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    /* Summary Sidebar */
+    .summary-card {
+      position: sticky;
+      top: 90px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .summary-row.total {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      border-top: 2px dashed rgba(200, 59, 119, 0.2);
+    }
+    .summary-row.total span:last-child {
+      color: var(--primary-dark);
+    }
+    .coupon-box {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+    }
+    .coupon-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+    .coupon-btn {
+      padding: 0.75rem 1.2rem;
+      background: rgba(248, 92, 168, 0.12);
+      border: 1px solid var(--border);
+      color: var(--primary-dark);
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .coupon-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-main {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(248, 92, 168, 0.35);
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-main:hover {
+      transform: translateY(-2px);
+    }
+    /* Checkout Form */
+    .form-section {
+      display: none;
+    }
+    .form-section.is-active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: 3px solid rgba(248, 92, 168, 0.25);
+      border-color: var(--primary);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .payment-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .payment-option {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+    .payment-option.active {
+      border-color: var(--primary);
+      background: #fff3f9;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 36, 54, 0.6);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100005;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .order-modal {
+      background: #fff;
+      border-radius: 28px;
+      max-width: 550px;
+      width: 100%;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+      animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.9) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #e8fbf3;
+      color: #10b981;
+      font-size: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .order-number-tag {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: rgba(248, 92, 168, 0.12);
+      color: var(--primary-dark);
+      font-weight: 800;
+      border-radius: 999px;
+      margin: 0.8rem 0 1.2rem;
+    }
+    .order-summary-box {
+      background: #fff8fc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      text-align: left;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .order-summary-box div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+    @media (max-width: 860px) {
+      .cart-grid { grid-template-columns: 1fr; }
+      .form-row, .payment-methods { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-root"></div>
+
+  <main class="cart-page-wrap">
+    <header class="page-header">
+      <h1 class="page-title">Your Shopping Bag</h1>
+      <p class="page-subtitle">Complete your purchase or review your selected items</p>
+    </header>
+
+    <!-- Step Navigation -->
+    <div class="checkout-steps">
+      <div class="step-tab active" id="stepTab1" onclick="switchStep(1)">
+        <span class="step-num">1</span>
+        <span>Review Bag</span>
+      </div>
+      <div class="step-tab" id="stepTab2" onclick="switchStep(2)">
+        <span class="step-num">2</span>
+        <span>Delivery & Payment</span>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="cart-grid">
+      <!-- Step 1: Items Table -->
+      <section class="cart-panel form-section is-active" id="stepSection1">
+        <div class="panel-title">
+          <span>Selected Products (<span id="cartItemCount">0</span>)</span>
+          <button type="button" class="remove-btn" onclick="AlishaCart.clearCart()" style="font-size: 0.82rem;">🗑️ Clear Bag</button>
+        </div>
+
+        <div id="cartTableContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Step 2: Delivery & Checkout Form -->
+      <section class="cart-panel form-section" id="stepSection2">
+        <div class="panel-title">
+          <span>Shipping & Payment Details</span>
+        </div>
+
+        <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orderName">Full Name *</label>
+              <input type="text" id="orderName" placeholder="e.g. Alisha Magar" required />
+            </div>
+            <div class="form-group">
+              <label for="orderPhone">Phone Number *</label>
+              <input type="tel" id="orderPhone" placeholder="e.g. 9828176055" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="orderEmail">Email Address *</label>
+            <input type="email" id="orderEmail" placeholder="e.g. you@example.com" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orderAddress">Street Address / Landmark *</label>
+              <input type="text" id="orderAddress" placeholder="e.g. New Baneshwor, Ward 10" required />
+            </div>
+            <div class="form-group">
+              <label for="orderCity">City / Municipality *</label>
+              <input type="text" id="orderCity" value="Kathmandu" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Payment Method *</label>
+            <div class="payment-methods">
+              <label class="payment-option active">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery" checked />
+                <span>💵 Cash on Delivery</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="eSewa / Khalti / Fonepay" />
+                <span>📱 eSewa / Digital Wallet</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Card Payment" />
+                <span>💳 Debit / Credit Card</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="orderNotes">Order Notes (Optional)</label>
+            <textarea id="orderNotes" rows="2" placeholder="Any special delivery instructions..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-main" id="placeOrderBtn">
+            <span>Place Order Now</span>
+            <span>✓</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Sidebar Order Summary -->
+      <aside class="cart-panel summary-card">
+        <h3 class="panel-title">Order Summary</h3>
+
+        <div class="summary-row">
+          <span>Bag Subtotal</span>
+          <strong id="summarySubtotal">Rs. 0.00</strong>
+        </div>
+
+        <div class="summary-row" id="summaryDiscountRow" style="display: none;">
+          <span style="color: var(--primary-dark)">Coupon Discount</span>
+          <strong id="summaryDiscount" style="color: var(--primary-dark)">-Rs. 0.00</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Estimated Delivery</span>
+          <span id="summaryShipping">Rs. 150.00</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Grand Total</span>
+          <span id="summaryTotal">Rs. 0.00</span>
+        </div>
+
+        <div class="coupon-box">
+          <input type="text" id="couponCodeInput" class="coupon-input" placeholder="Promo code (e.g. ALISHA10)" />
+          <button type="button" class="coupon-btn" onclick="applyCouponHandler()">Apply</button>
+        </div>
+        <small style="color: var(--muted); font-size: 0.78rem; display: block; margin-top: -0.5rem; margin-bottom: 1.25rem;">
+          💡 Try <strong>ALISHA10</strong> for 10% off or <strong>SUMMER50</strong> for Rs. 200 off!
+        </small>
+
+        <button type="button" class="btn-main" id="mainActionBtn" onclick="handleMainAction()">
+          <span>Proceed to Checkout</span>
+          <span>&rarr;</span>
+        </button>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Order Confirmation Modal -->
+  <div class="modal-overlay" id="orderConfirmModal">
+    <div class="order-modal">
+      <div class="modal-badge">✓</div>
+      <h2 style="font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 0.3rem;">Order Placed Successfully!</h2>
+      <p style="color: var(--muted); font-size: 0.95rem;">Thank you for shopping with The Alisha. We've received your order and are preparing it for delivery.</p>
+      
+      <div class="order-number-tag" id="modalOrderNumber">Order #AL-2026-0000</div>
+
+      <div class="order-summary-box" id="modalSummaryDetails">
+        <!-- JS details -->
+      </div>
+
+      <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/The-Alisha/my-orders.html" class="btn-main" style="padding: 0.75rem 1.4rem; font-size: 0.9rem; text-decoration: none;">View My Orders</a>
+        <a href="/The-Alisha/Client-side/Home/The.alisha/index.html" class="coupon-btn" style="padding: 0.75rem 1.4rem; text-decoration: none; font-size: 0.9rem;">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/The-Alisha/public/components/navbar/navbar-loader.js"></script>
+  <script src="/The-Alisha/public/components/cart/cart-manager.js"></script>
+  <script>
+    let currentStep = 1;
+
+    function renderCartPage() {
+      const state = window.AlishaCart ? window.AlishaCart.state : { items: [], subtotal: 0, total: 0, itemCount: 0 };
+      const container = document.getElementById('cartTableContainer');
+      const countEl = document.getElementById('cartItemCount');
+      const subtotalEl = document.getElementById('summarySubtotal');
+      const shippingEl = document.getElementById('summaryShipping');
+      const totalEl = document.getElementById('summaryTotal');
+      const discountRow = document.getElementById('summaryDiscountRow');
+      const discountEl = document.getElementById('summaryDiscount');
+
+      if (countEl) countEl.textContent = String(state.itemCount || 0);
+      if (subtotalEl) subtotalEl.textContent = AlishaCart.formatPrice(state.subtotal);
+      if (shippingEl) shippingEl.textContent = state.shipping === 0 ? 'FREE' : AlishaCart.formatPrice(state.shipping);
+      if (totalEl) totalEl.textContent = AlishaCart.formatPrice(state.total);
+
+      if (discountRow && discountEl) {
+        if (state.discount && state.discount > 0) {
+          discountRow.style.display = 'flex';
+          discountEl.textContent = '-' + AlishaCart.formatPrice(state.discount);
+        } else {
+          discountRow.style.display = 'none';
+        }
+      }
+
+      if (!container) return;
+
+      if (!state.items || state.items.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart-view">
+            <div class="empty-icon">🛍️</div>
+            <h3 style="color: var(--primary-dark); margin-bottom: 0.5rem;">Your shopping bag is empty</h3>
+            <p style="color: var(--muted); margin-bottom: 1.5rem;">Looks like you haven't added any items to your bag yet.</p>
+            <a href="/The-Alisha/Client-side/Home/newArrival/new-Arrivals.html" class="btn-main" style="display:inline-flex; width:auto; padding: 0.75rem 2rem; text-decoration:none;">Discover Collection</a>
+          </div>
+        `;
+        document.getElementById('mainActionBtn').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('mainActionBtn').style.display = 'flex';
+
+      container.innerHTML = `
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${state.items.map(item => `
+              <tr>
+                <td>
+                  <div class="product-col">
+                    <img src="${item.image || 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80'}" alt="${item.name}" class="cart-img" onerror="this.src='https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80'">
+                    <div>
+                      <div class="cart-prod-name">${item.name}</div>
+                      <div class="cart-prod-meta">Size: ${item.size || 'M'}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="unit-price">${AlishaCart.formatPrice(item.price)}</td>
+                <td>
+                  <div class="qty-controls">
+                    <button type="button" onclick="AlishaCart.updateQuantity('${item.productId}', ${item.quantity - 1})">&minus;</button>
+                    <span>${item.quantity}</span>
+                    <button type="button" onclick="AlishaCart.updateQuantity('${item.productId}', ${item.quantity + 1})">&plus;</button>
+                  </div>
+                </td>
+                <td class="line-price">${AlishaCart.formatPrice(item.lineTotal || (item.price * item.quantity))}</td>
+                <td>
+                  <button type="button" class="remove-btn" onclick="AlishaCart.removeItem('${item.productId}')" title="Delete product">🗑️</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function switchStep(step) {
+      currentStep = step;
+      document.querySelectorAll('.step-tab').forEach((tab, i) => tab.classList.toggle('active', i + 1 === step));
+      document.querySelectorAll('.form-section').forEach((sec, i) => sec.classList.toggle('is-active', i + 1 === step));
+
+      const mainBtn = document.getElementById('mainActionBtn');
+      if (mainBtn) {
+        if (step === 1) {
+          mainBtn.innerHTML = '<span>Proceed to Checkout</span> <span>&rarr;</span>';
+          mainBtn.onclick = () => switchStep(2);
+        } else {
+          mainBtn.innerHTML = '<span>Place Order</span> <span>✓</span>';
+          mainBtn.onclick = () => document.getElementById('checkoutForm').requestSubmit();
+        }
+      }
+    }
+
+    function handleMainAction() {
+      if (currentStep === 1) {
+        switchStep(2);
+      } else {
+        document.getElementById('checkoutForm').requestSubmit();
+      }
+    }
+
+    async function applyCouponHandler() {
+      const input = document.getElementById('couponCodeInput');
+      const res = await AlishaCart.applyCoupon(input.value);
+      if (!res.success) {
+        alert(res.message);
+      }
+    }
+
+    async function handlePlaceOrder(e) {
+      e.preventDefault();
+      const state = AlishaCart.state;
+      if (!state.items || state.items.length === 0) {
+        alert('Your bag is empty!');
+        return;
+      }
+
+      const payload = {
+        fullName: document.getElementById('orderName').value.trim(),
+        phone: document.getElementById('orderPhone').value.trim(),
+        email: document.getElementById('orderEmail').value.trim(),
+        address: document.getElementById('orderAddress').value.trim(),
+        city: document.getElementById('orderCity').value.trim(),
+        paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Cash on Delivery',
+        notes: document.getElementById('orderNotes').value.trim(),
+        couponCode: state.coupon ? state.coupon.code : '',
+        items: state.items
+      };
+
+      const btn = document.getElementById('placeOrderBtn');
+      btn.disabled = true;
+      btn.textContent = 'Processing Order...';
+
+      try {
+        const res = await fetch('/The-Alisha/server-side/backend/orders.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Failed to place order.');
+        }
+
+        // Show confirmation modal
+        const order = data.order;
+        document.getElementById('modalOrderNumber').textContent = `Order #${order.orderNumber}`;
+        document.getElementById('modalSummaryDetails').innerHTML = `
+          <div><span>Customer:</span> <strong>${order.customerName}</strong></div>
+          <div><span>Phone:</span> <strong>${order.customerPhone}</strong></div>
+          <div><span>Delivery To:</span> <strong>${order.shippingAddress}, ${order.city}</strong></div>
+          <div><span>Payment:</span> <strong>${order.paymentMethod}</strong></div>
+          <div><span>Items Ordered:</span> <strong>${order.items.length} item(s)</strong></div>
+          <div style="border-top:1px dashed #e8c6d7; padding-top:0.4rem; margin-top:0.4rem; font-weight:bold; color:var(--primary-dark);">
+            <span>Total Paid:</span> <strong>${order.formattedTotal}</strong>
+          </div>
+        `;
+
+        document.getElementById('orderConfirmModal').classList.add('show');
+        AlishaCart.clearCart();
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Place Order Now ✓';
+      }
+    }
+
+    // Payment options radio selection highlight
+    document.addEventListener('change', (e) => {
+      if (e.target.name === 'paymentMethod') {
+        document.querySelectorAll('.payment-option').forEach(opt => {
+          opt.classList.toggle('active', opt.querySelector('input').checked);
+        });
+      }
+    });
+
+    window.addEventListener('alisha:cart-updated', renderCartPage);
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCartPage();
+
+      // Pre-fill user details if logged in
+      fetch('/The-Alisha/server-side/backend/auth/session.php', { credentials: 'include' })
+        .then(r => r.json())
+        .then(data => {
+          if (data.authenticated && data.user) {
+            const u = data.user;
+            if (u.fullName) document.getElementById('orderName').value = u.fullName;
+            if (u.email) document.getElementById('orderEmail').value = u.email;
+            if (u.phone) document.getElementById('orderPhone').value = u.phone;
+          }
+        })
+        .catch(() => {});
+
+      if (new URLSearchParams(window.location.search).get('checkout') === '1') {
+        switchStep(2);
+      }
+    });
+  </script>
+</body>
+</html>

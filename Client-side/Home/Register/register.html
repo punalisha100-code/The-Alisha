@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create an Account</title>
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <form action="../../server-side/backend/register.php" method="POST">
+    
+    <main class="register-shell">
+      <section class="register-card" aria-label="Create account form">
+        <header class="register-header">
+          <h2>Create an account</h2>
+          <p>Sign up in minutes and start shopping with a more personal experience.</p>
+        </header>
+
+      <form id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input 
+            type="text" 
+            id="fullName" 
+            name="fullName" 
+            placeholder="Full Name" 
+            required 
+            aria-required="true" 
+            aria-describedby="fullNameError"
+            >
+          <span class="error-msg" id="fullNameError" aria-live="polite"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="" 
+              required 
+              aria-required="true" 
+              aria-describedby="emailError"
+            >
+            <span class="error-msg" id="emailError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="+977 98XXXXXXXX" 
+              required 
+              aria-required="true"
+              aria-describedby="phoneError"
+            >
+            <span class="error-msg" id="phoneError" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Password" 
+                required 
+                aria-required="true"
+                aria-describedby="passwordError"
+              >
+              <button type="button" class="toggle-password" aria-label="Toggle password visibility">Show</button>
+            </div>
+            <div class="strength-meter" id="strengthMeter" aria-hidden="true">
+              <div class="strength-bar" id="strengthBar"></div>
+            </div>
+            <span class="error-msg" id="passwordError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="confirmPassword" 
+                name="confirmPassword" 
+                placeholder="Re-enter password" 
+                required 
+                aria-required="true"
+                aria-describedby="confirmPasswordError"
+              >
+            </div>
+            <span class="error-msg" id="confirmPasswordError" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required aria-required="true">
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          <span class="error-msg" id="termsError" aria-live="polite"></span>
+        </div>
+        
+        <button type="submit" class="submit-btn" id="submitBtn">Create Account</button>
+        <p class="auth-switch">Already have an account? <a href="../Login/login.html">Sign in</a></p>
+      </form>
+    </section>
+  </main>
+</form>
+  <script src="register.js"></script>
+
+</body>
+</html>

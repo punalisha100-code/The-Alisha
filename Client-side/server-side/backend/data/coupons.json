@@ -1,0 +1,20 @@
+{
+    "ALISHA10": {
+        "type": "percent",
+        "value": 10,
+        "minSpend": 500,
+        "description": "10% discount on entire order"
+    },
+    "SUMMER50": {
+        "type": "flat",
+        "value": 200,
+        "minSpend": 1000,
+        "description": "Rs. 200 flat discount"
+    },
+    "FREESHIP": {
+        "type": "free_shipping",
+        "value": 0,
+        "minSpend": 0,
+        "description": "Free shipping on any order"
+    }
+}

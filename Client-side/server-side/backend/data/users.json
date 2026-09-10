@@ -1,0 +1,65 @@
+[
+    {
+        "id": "88f7add284280c70",
+        "fullName": "Test User",
+        "email": "test@example.com",
+        "phone": "1234567890",
+        "role": "user",
+        "passwordHash": "$2y$10$wU2mw08zvee1TxlkDElPAuY.qjydPwS95USaBb4GXDYxMY3ZHW2kO",
+        "createdAt": "2026-08-07T06:10:19+00:00"
+    },
+    {
+        "id": "64c525ab73be9a81",
+        "fullName": "Alisha Magar",
+        "email": "punalisha100@gmail.com",
+        "phone": "9828176055",
+        "role": "user",
+        "passwordHash": "$2y$10$aDg4YjlgLnmUP6PZCvWEOeMybD4ppglfHiqC2HmGBkJqUrPdlM\/3W",
+        "createdAt": "2026-08-07T06:12:05+00:00"
+    },
+    {
+        "id": "4de3e83e7b95f56d",
+        "fullName": "Alisha Magar",
+        "email": "punalisha1001@gmail.com",
+        "phone": "9828176055",
+        "role": "user",
+        "passwordHash": "$2y$10$vE8zOyHdbZ6PbIhCKRzKmuAgmGxIZAAHd4XIaJEivT46buqFkb43a",
+        "createdAt": "2026-08-07T06:15:55+00:00"
+    },
+    {
+        "id": "fbb6e3db51fea371",
+        "fullName": "Shyam thakuri",
+        "email": "shyam@gamil.com",
+        "phone": "9808410066",
+        "role": "user",
+        "passwordHash": "$2y$10$RdVetP3pZAg0oB4nRs4r5ehg.1kp7GO2oZZVmibAZz2hKMVFYd5xq",
+        "createdAt": "2026-08-07T06:17:07+00:00"
+    },
+    {
+        "id": "cc5cac36745e81d5",
+        "fullName": "Alisha Magar",
+        "email": "punalisha1002@gmail.com",
+        "phone": "9828176055",
+        "role": "user",
+        "passwordHash": "$2y$10$JP45wfp\/LpXLxKQnwY8w4eb3kGkIdipJSYbxjNS2DVrH6zuEI9BGe",
+        "createdAt": "2026-08-07T06:19:14+00:00"
+    },
+    {
+        "id": "4202a61ac24252e1",
+        "fullName": "CLI Test",
+        "email": "cli@example.com",
+        "phone": "+1234567890",
+        "role": "user",
+        "passwordHash": "$2y$10$u7z.Rni6uPptZtiBDnwwWelrEb6z2KjKpXQd5UEMk8M3R8csO2ZVu",
+        "createdAt": "2026-08-10T07:15:07+00:00"
+    },
+    {
+        "id": "4e728cf098e13056",
+        "fullName": "Workflow Check",
+        "email": "workflow-check-20260825@example.com",
+        "phone": "9800000000",
+        "role": "user",
+        "passwordHash": "$2y$10$wxXjEiOOAEnDtaU\/NGgPGOfeFYueduKCe.0nN5dMck7.e.iIEBF.W",
+        "createdAt": "2026-08-25T09:10:00+02:00"
+    }
+]

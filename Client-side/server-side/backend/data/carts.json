@@ -1,0 +1,147 @@
+{
+    "4e728cf098e13056": {
+        "items": [
+            {
+                "productId": "workflow-check-item",
+                "name": "Workflow Check Item",
+                "price": 100,
+                "quantity": 1,
+                "addedAt": "2026-08-25T09:10:00+02:00"
+            }
+        ]
+    },
+    "test_cart_guest_123": {
+        "items": [
+            {
+                "productId": "prod-pink-dress",
+                "name": "Pretty onepice Dress",
+                "price": 4000,
+                "quantity": 2,
+                "image": "https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcR3yOf4AkP65aj5lC_400AvRc7G-2plv2hs5YbyMrpq-w&s",
+                "size": "M",
+                "lineTotal": 8000
+            }
+        ],
+        "subtotal": 8000,
+        "discount": 830,
+        "shipping": 0,
+        "total": 8000,
+        "itemCount": 2
+    },
+    "cart_o56misvmbrmtb81rrz": {
+        "items": [
+            {
+                "productId": "prod-quilted-bag",
+                "name": "Elegant Quilted Bag",
+                "price": 1600,
+                "quantity": 3,
+                "image": "https:\/\/coach.scene7.com\/is\/image\/Coach\/ccx04_b4mpl_a0?$mobileProductTile$",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-07T16:31:47+02:00",
+                "lineTotal": 4800,
+                "formattedLineTotal": "Rs. 4,800.00",
+                "formattedPrice": "Rs. 1,600.00",
+                "updatedAt": "2026-09-09T04:40:06+02:00"
+            },
+            {
+                "productId": "prod-dewy-serum",
+                "name": "Dewy Glow Serum",
+                "price": 0.11999999999999999555910790149937383830547332763671875,
+                "quantity": 2,
+                "image": "https:\/\/images.unsplash.com\/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=900&q=85",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-09T04:36:49+02:00",
+                "lineTotal": 0.2399999999999999911182158029987476766109466552734375,
+                "formattedLineTotal": "Rs. 0.24",
+                "formattedPrice": "Rs. 0.12",
+                "updatedAt": "2026-09-09T04:40:28+02:00"
+            },
+            {
+                "productId": "prod-pink-dress",
+                "name": "Pretty onepice Dress",
+                "price": 4000,
+                "quantity": 2,
+                "image": "https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcR3yOf4AkP65aj5lC_400AvRc7G-2plv2hs5YbyMrpq-w&s",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-09T04:40:03+02:00",
+                "lineTotal": 8000,
+                "formattedLineTotal": "Rs. 8,000.00",
+                "formattedPrice": "Rs. 4,000.00",
+                "updatedAt": "2026-09-09T04:40:03+02:00"
+            },
+            {
+                "productId": "prod-floral-maxi",
+                "name": "Emerald Floral Maxi Dress",
+                "price": 2500,
+                "quantity": 1,
+                "image": "https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcQePizqT3-jra4cnzS0WnnJZzbfecXn_5Z5mW0Y0wDB5g&s=10",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-09T04:40:14+02:00",
+                "lineTotal": 2500,
+                "formattedLineTotal": "Rs. 2,500.00",
+                "formattedPrice": "Rs. 2,500.00"
+            },
+            {
+                "productId": "prod-linen-blazer",
+                "name": "Tailored Linen Blazer",
+                "price": 0.34999999999999997779553950749686919152736663818359375,
+                "quantity": 1,
+                "image": "https:\/\/images.unsplash.com\/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-09T04:40:20+02:00",
+                "lineTotal": 0.34999999999999997779553950749686919152736663818359375,
+                "formattedLineTotal": "Rs. 0.35",
+                "formattedPrice": "Rs. 0.35"
+            },
+            {
+                "productId": "gold-hoop-earrings-1788921633878",
+                "name": "Gold Hoop Earrings",
+                "price": 45.99000000000000198951966012828052043914794921875,
+                "quantity": 1,
+                "image": "https:\/\/images.unsplash.com\/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=85",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-09T04:40:33+02:00",
+                "lineTotal": 45.99000000000000198951966012828052043914794921875,
+                "formattedLineTotal": "Rs. 45.99",
+                "formattedPrice": "Rs. 45.99"
+            }
+        ],
+        "subtotal": 15346.579999999999927240423858165740966796875,
+        "formattedSubtotal": "Rs. 15,346.58",
+        "itemCount": 10,
+        "shipping": 0,
+        "formattedShipping": "FREE",
+        "total": 15346.579999999999927240423858165740966796875,
+        "formattedTotal": "Rs. 15,346.58"
+    },
+    "cart_3u2xcvtmt3mtrb1q9q": {
+        "items": [
+            {
+                "productId": "prod-pants",
+                "name": "Tailored Slim Pants",
+                "price": 0.13000000000000000444089209850062616169452667236328125,
+                "quantity": 1,
+                "image": "https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcRm1cXLAx0b2tJxWlcIRkU8IFVoyPdiEdOUDhHwxzJW-J3IDi0-5n02oZxk&s=10",
+                "size": "M",
+                "color": "Standard",
+                "addedAt": "2026-09-07T16:20:33+02:00",
+                "lineTotal": 0.13000000000000000444089209850062616169452667236328125,
+                "formattedLineTotal": "Rs. 0.13",
+                "formattedPrice": "Rs. 0.13"
+            }
+        ],
+        "subtotal": 0.13000000000000000444089209850062616169452667236328125,
+        "formattedSubtotal": "Rs. 0.13",
+        "itemCount": 1,
+        "shipping": 150,
+        "formattedShipping": "Rs. 150.00",
+        "total": 150.1299999999999954525264911353588104248046875,
+        "formattedTotal": "Rs. 150.13"
+    }
+}
